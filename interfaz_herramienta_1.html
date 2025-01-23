@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chúuk Note | Herramienta 1</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #1e1e1e;
+      color: #dcdcdc;
+    }
+
+    /* Header */
+    header {
+      background-color: #2a2a2a;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    header .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    header .logo-container img {
+      height: 50px;
+    }
+
+    header .logo-container h1 {
+      color: #dcdcdc;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    header nav a {
+      text-decoration: none;
+      color: #dcdcdc;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover {
+      color: #d4af37;
+    }
+
+    /* Main Section */
+    main {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    main h2 {
+      color: #d4af37;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    main p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px; /* Ajusta según el tamaño necesario */
+      border: none;
+      margin-top: 2rem;
+    }
+
+    .info-ketcher {
+      background-color: #2a2a2a;
+      padding: 2rem;
+      text-align: center;
+      color: #dcdcdc;
+      margin-top: 2rem;
+    }
+
+    .info-ketcher h3 {
+      color: #d4af37;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-ketcher p {
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      font-size: 0.85rem; /* Letras más pequeñas */
+    }
+
+    .btn-fullscreen {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #1e1e1e;
+      background-color: #d4af37;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-fullscreen:hover {
+      background-color: #b38e2d;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      background-color: #000;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    footer a {
+      color: #dcdcdc;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: #d4af37;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-container">
+      <img src="Imagenes/logo.png" alt="Logo Chúuk Note" />
+      <h1>Chúuk Note</h1>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
+        <li><a href="#herramienta">Herramientas</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Section -->
+  <main>
+    <h2>Herramienta 1</h2>
+    <div style="text-align: center; width: 100%; line-height: 1.6;">
+      <span>Bienvenido a la Herramienta 1 de Chúuk Note.</span>
+      <span>Explora las opciones para diseñar estructuras químicas de manera interactiva... tal vez no tan eficiente...</span>
+    </div>
+
+    <!-- Botón Pantalla Completa -->
+    <a href="C:/Users/josea.TDD/Documents/pruebas/KetcherStandalone/Ketcher.html" class="btn-fullscreen" target="_blank">
+      Pantalla Completa
+    </a>
+
+    <!-- Aquí se incrusta Ketcher.html -->
+    <iframe src="C:/Users/josea.TDD/Documents/pruebas/KetcherStandalone/Ketcher.html" 
+            style="width: 100%; height: 90vh; border: none; margin-top: 2rem;"></iframe>
+  </main>
+
+  <!-- Información sobre Ketcher -->
+  <div class="info-ketcher">
+    <h3></h3>
+    <p>
+        Ketcher es una herramienta de código abierto integrada en Chúuk Note para crear y editar estructuras químicas. La hemos sumado para que tengas más opciones y una experiencia más completa al usar nuestras herramientas.
+    </p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Chúuk Note. Todos los derechos reservados. | <a href="#">Términos de Uso</a> | <a href="#">Política de Privacidad</a></p>
+  </footer>
+
+</body>
+</html>
