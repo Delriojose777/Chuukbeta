@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas con Barras Flotantes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .toolbar {
+            position: fixed;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            gap: 10px;
+        }
+
+        .toolbar.left {
+            top: 10%;
+            left: 10px;
+        }
+
+        .toolbar.right {
+            top: 10%;
+            right: 10px;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .toolbar button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #eaeaea;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toolbar button:hover {
+            background: #d0d0d0;
+        }
+
+        .toolbar button i {
+            font-size: 18px;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra flotante izquierda -->
+    <div class="toolbar left">
+        <button id="pencil" title="Lápiz"><i class="fas fa-pencil-alt"></i></button>
+        <button id="eraser" title="Borrador"><i class="fas fa-eraser"></i></button>
+        <button id="add-text" title="Agregar Texto"><i class="fas fa-font"></i></button>
+        <button id="select-tool" title="Seleccionar"><i class="fas fa-mouse-pointer"></i></button>
+        <button id="add-image" title="Insertar Imagen"><i class="fas fa-image"></i></button>
+        <button id="delete" title="Borrar"><i class="fas fa-trash"></i></button> <!-- Botón renombrado -->
+        <button id="save" title="Guardar"><i class="fas fa-save"></i></button>
+    </div>
+
+    <!-- Barra flotante derecha -->
+    <div class="toolbar right">
+        <label for="stroke-width">Grosor:</label>
+        <input type="number" id="stroke-width" min="1" max="50" value="5">
+        <label for="stroke-color">Color:</label>
+        <input type="color" id="stroke-color" value="#000000">
+        <label for="fill-color">Relleno:</label>
+        <input type="color" id="fill-color" value="#ffffff">
+    </div>
+
+    <!-- Canvas -->
+    <canvas id="drawing-canvas" width="800" height="600"></canvas>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+    <script>
+        const canvas = new fabric.Canvas('drawing-canvas', {
+            isDrawingMode: true,
+            backgroundColor: '#fff',
+        });
+
+        let strokeWidth = 5;
+        let strokeColor = '#000000';
+        let fillColor = '#ffffff';
+
+        // Funcionalidad del botón Borrar (elimina solo el objeto seleccionado)
+        document.getElementById('delete').addEventListener('click', () => {
+            const activeObject = canvas.getActiveObject();
+            if (activeObject) {
+                canvas.remove(activeObject); // Elimina el objeto seleccionado
+            } else {
+                alert('Por favor selecciona un objeto para borrar.');
+            }
+        });
+
+        // Actualizar grosor, color y relleno
+        document.getElementById('stroke-width').addEventListener('change', (e) => {
+            strokeWidth = parseInt(e.target.value);
+            canvas.freeDrawingBrush.width = strokeWidth;
+        });
+
+        document.getElementById('stroke-color').addEventListener('change', (e) => {
+            strokeColor = e.target.value;
+            canvas.freeDrawingBrush.color = strokeColor;
+        });
+
+        document.getElementById('fill-color').addEventListener('change', (e) => {
+            fillColor = e.target.value;
+        });
+
+        // Herramientas
+        document.getElementById('pencil').addEventListener('click', () => {
+            canvas.isDrawingMode = true;
+            canvas.freeDrawingBrush.color = strokeColor;
+            canvas.freeDrawingBrush.width = strokeWidth;
+        });
+
+        document.getElementById('eraser').addEventListener('click', () => {
+            canvas.isDrawingMode = true;
+            canvas.freeDrawingBrush.color = '#ffffff'; // Color de fondo
+        });
+
+        document.getElementById('select-tool').addEventListener('click', () => {
+            canvas.isDrawingMode = false;
+        });
+
+        document.getElementById('add-text').addEventListener('click', () => {
+            const text = new fabric.Textbox('Escribe aquí', {
+                left: 100,
+                top: 100,
+                width: 150,
+                fontSize: 20,
+                fill: strokeColor,
+                fontFamily: 'Arial',
+            });
+            canvas.add(text);
+            canvas.setActiveObject(text);
+            text.enterEditing();
+        });
+
+        document.getElementById('add-image').addEventListener('click', () => {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+                reader.onload = (f) => {
+                    const img = new Image();
+                    img.src = f.target.result;
+                    img.onload = () => {
+                        const fabricImg = new fabric.Image(img, {
+                            left: 100,
+                            top: 100,
+                            scaleX: 0.5,
+                            scaleY: 0.5,
+                        });
+                        canvas.add(fabricImg);
+                    };
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        });
+
+        document.getElementById('save').addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL({
+                format: 'png',
+                multiplier: 2,
+            });
+            link.download = 'canvas.png';
+            link.click();
+        });
+
+        // Redimensionar canvas
+        function resizeCanvas() {
+            canvas.setWidth(window.innerWidth * 0.8);
+            canvas.setHeight(window.innerHeight * 0.8);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Inicializar tamaño
+    </script>
+</body>
+</html>
