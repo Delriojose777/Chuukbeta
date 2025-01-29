@@ -41,6 +41,8 @@
       align-items: center;
       justify-content: space-between;
       padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     header .titulo-head {
@@ -62,6 +64,7 @@
       display: flex;
       list-style: none;
       gap: 1.5rem;
+      align-items: center; /* Alinear elementos verticalmente */
     }
 
     header nav a {
@@ -73,6 +76,21 @@
 
     header nav a:hover {
       color: #d4af37;
+    }
+
+    /* Botón DrawFlow */
+    .btn-drawflow {
+      padding: 0.5rem 1rem;
+      background-color: #d4af37;
+      color: #1e1e1e;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-drawflow:hover {
+      background-color: #b38e2d;
     }
 
     /* Hero Section */
@@ -124,6 +142,8 @@
     section {
       padding: 4rem 2rem;
       text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     section h2 {
@@ -278,6 +298,7 @@
       header nav ul {
         flex-direction: column;
         gap: 0.5rem;
+        text-align: center;
       }
 
       .hero h1 {
@@ -291,21 +312,41 @@
       #estadisticas {
         text-align: center;
       }
-    }/* Botones de Herramientas */
-.btn-herramienta {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  font-weight: bold;
-  border-radius: 8px;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
 
-.btn-herramienta:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+      .hero img {
+        height: 150px; /* Ajuste para móviles */
+      }
 
+      .hero .btn {
+        padding: 0.5rem 1.5rem;
+      }
+
+      section {
+        padding: 2rem 1rem;
+      }
+
+      form {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header .titulo-head h1 {
+        font-size: 1.2rem;
+      }
+
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+      }
+
+      .btn-secondary {
+        padding: 0.5rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -324,26 +365,28 @@
           <li><a href="#sobre-nosotros">Sobre Nosotros</a></li>
           <li><a href="#herramienta">Herramienta</a></li>
           <li><a href="#contacto">Contacto</a></li>
+          <!-- Nuevo botón DrawFlow -->
+          <li><a href="DrawFlow.html" class="btn-drawflow">DrawFlow</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-<!-- Hero Section -->
-<section class="hero" id="inicio">
-  <!-- Logo 2 encima del título -->
-  <img src="Imagenes/logo2.png" alt="Logo 2 Chúuk Note" />
-  <div class="hero-content">
-    <div class="text-content">
-      <h1>Bienvenido a Chúuk Note</h1>
-      <p>Innovación para la química y la creatividad.</p>
-      <a href="#herramienta" class="btn">Probar Ahora</a>
+  <!-- Hero Section -->
+  <section class="hero" id="inicio">
+    <!-- Logo 2 encima del título -->
+    <img src="Imagenes/logo2.png" alt="Logo 2 Chúuk Note" />
+    <div class="hero-content">
+      <div class="text-content">
+        <h1>Bienvenido a Chúuk Note</h1>
+        <p>Innovación para la química y la creatividad.</p>
+        <a href="#herramienta" class="btn">Probar Ahora</a>
+      </div>
+      <div class="video-content">
+        <video src="Imagenes/explicacion.mp4" controls width="100%" style="max-width: 400px;"></video>
+      </div>
     </div>
-    <div class="video-content">
-      <video src="Imagenes/explicacion.mp4" controls width="400"></video>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- Sobre Nosotros -->
   <section id="sobre-nosotros">
@@ -353,6 +396,7 @@
     </p>
   </section>
 
+  <!-- Herramienta -->
   <section id="herramienta">
     <h2>Herramienta</h2>
     <p>
@@ -362,8 +406,6 @@
       <a href="interfaz_herramienta_1.html" class="btn-herramienta" style="background-color: #d4af37; color: #1e1e1e;">Chúuk-et</a>
     </div>
   </section>
-  
-  
 
   <!-- Estadísticas -->
   <section id="estadisticas">
